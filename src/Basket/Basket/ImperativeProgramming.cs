@@ -11,17 +11,30 @@ namespace Basket
     {
         public static decimal CalculateBasketAmount(IList<BasketLineArticle> BasketLineArticles)
         {
-            var amount = 0;
+            var amountTotal = 0;
             foreach (var basketLineArticle in BasketLineArticles)
             {
             #if DEBUG
-                var article = GetArticleDatabaseMock(basketLineArticle.Id);
+                var article = GetArticleDatabaseMock(basketLineArticle.Id); 
             #else
                  var article = GetArticleDatabase(basketLineArticle.Id);
             #endif
-                amount += basketLineArticle.Number * article.Price;
+                var amount = 0;
+                switch (article.Category)
+                {
+                    case "food":
+                        amount += article.Price * 100 + article.Price * 12;
+                        break;
+                    case "electronic":
+                        amount += article.Price * 100 + article.Price * 20 + 4;
+                        break;
+                    case "desktop":
+                        amount += article.Price * 100 + article.Price * 20;
+                        break;
+                }
+                amountTotal += basketLineArticle.Number * amount;
             }
-            return amount;
+            return amountTotal;
         }
 
         public static ArticleDatabase GetArticleDatabase(string id)

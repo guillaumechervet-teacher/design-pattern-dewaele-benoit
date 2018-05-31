@@ -91,7 +91,8 @@ namespace BasketTests
                 amountTotal += amount * basketLineArticle.Number;
             }
 
-            Assert.AreEqual(amountTotal, basketTest.ExpectedPrice);
+            //Assert.AreEqual(amountTotal, basketTest.ExpectedPrice);
+            Assert.AreEqual(ImperativeProgramming.CalculateBasketAmount(basketTest.BasketLineArticles), basketTest.ExpectedPrice);
         }
     }
 }
