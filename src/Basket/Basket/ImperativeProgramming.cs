@@ -37,7 +37,7 @@ namespace Basket
             return amountTotal;
         }
 
-        public static ArticleDatabase GetArticleDatabase(string id)
+        public static ArticleDatabaseJson GetArticleDatabase(string id)
         {
             var codeBase = Assembly.GetExecutingAssembly().CodeBase;
             var uri = new UriBuilder(codeBase);
@@ -45,17 +45,17 @@ namespace Basket
             var assemblyDirectory = Path.GetDirectoryName(path);
             var jsonPath = Path.Combine(assemblyDirectory, "article-database.json");
 
-            IList<ArticleDatabase> articleDatabases = JsonConvert.DeserializeObject<List<ArticleDatabase>>(File.ReadAllText(jsonPath));
+            IList<ArticleDatabaseJson> articleDatabases = JsonConvert.DeserializeObject<List<ArticleDatabaseJson>>(File.ReadAllText(jsonPath));
             var article = articleDatabases.First(articleDatabase => articleDatabase.Id == id);
             return article;
         }
 
-        public static ArticleDatabase GetArticleDatabaseMock(string id)
+        public static ArticleDatabaseJson GetArticleDatabaseMock(string id)
         {
             switch (id)
             {
                 case "1":
-                    return new ArticleDatabase
+                    return new ArticleDatabaseJson
                     {
                         Id = "1",
                         Price = 1,
@@ -65,7 +65,7 @@ namespace Basket
                         Category = "food"
                     };
                 case "2":
-                    return new ArticleDatabase
+                    return new ArticleDatabaseJson
                     {
                         Id = "2",
                         Price = 500,
@@ -74,7 +74,7 @@ namespace Basket
                         Category = "electronic"
                     };
                 case "3":
-                    return new ArticleDatabase
+                    return new ArticleDatabaseJson
                     {
                         Id = "3",
                         Price = 49,

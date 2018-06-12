@@ -17,25 +17,12 @@ namespace Basket.OrientedObject.Infrastructure
             foreach (var basketLineArticle in basketLineArticles)
             {
                 var articleId = basketLineArticle.Id;
-                var article = GetArticleDatabase(articleId);
+                var article = ArticleDatabaseJson.GetArticleDatabase(articleId);
                 LinesBasket.Add(new LineArticle(new Article(article.Id, article.Label, article.Category, article.Price, article.Stock), 
                     basketLineArticle.Number));
             }
 
             return new Domain.Basket(LinesBasket);
-        }
-
-        public static ArticleDatabase GetArticleDatabase(string id)
-        {
-            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uri = new UriBuilder(codeBase);
-            var path = Uri.UnescapeDataString(uri.Path);
-            var assemblyDirectory = Path.GetDirectoryName(path);
-            var jsonPath = Path.Combine(assemblyDirectory, "article-database.json");
-
-            IList<ArticleDatabase> articleDatabases = JsonConvert.DeserializeObject<List<ArticleDatabase>>(File.ReadAllText(jsonPath));
-            var article = articleDatabases.First(articleDatabase => articleDatabase.Id == id);
-            return article;
         }
 
     }

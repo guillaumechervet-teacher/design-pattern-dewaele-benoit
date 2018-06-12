@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Basket
 {
-    public struct ArticleDatabase
+    public struct ArticleDatabaseJson
     {
         public string Id { get; set; }
         public string Label { get; set; }
