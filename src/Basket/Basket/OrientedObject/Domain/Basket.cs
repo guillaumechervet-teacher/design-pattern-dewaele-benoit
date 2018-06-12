@@ -21,7 +21,7 @@ namespace Basket.OrientedObject.Domain
             int total = 0;
             foreach (var ligne in lineArticles)
             {
-                total += ligne.GetArticle().getPrice() * ligne.getNumnber();
+                total += ligne.Calculate();
             }
             return total;
         }
